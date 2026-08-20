@@ -12,8 +12,8 @@ description: Personal context about Yahia Snoussi — background, active project
 ## Active Projects
 
 ### Raffaella
-Premium bio-cosmetics e-commerce brand (Tunisian market + international). Spring Boot + Angular, MySQL. MVP complete.
-- Related skill: `/raffaella-brand` — full brand/tech context (stack, architecture, MVP status, deployment gaps).
+Premium bio-cosmetics e-commerce brand (Tunisian market + international). Spring Boot + Angular, MySQL. Past MVP — coupons, verified-purchase reviews, order email/WhatsApp notifications, TND currency, and admin nav-visibility controls all added 2026-08-20.
+- Related skill: `/raffaella-brand` — full brand/tech context (stack, architecture, deployment gaps), kept in sync with the code.
 
 ### OnBoarding
 Internal company project (self-initiated, not yet an official company deliverable).
@@ -41,13 +41,14 @@ Quick index of other project-scoped skills to load for deeper context on a given
 ## Open Tasks
 
 ### Raffaella
+- [ ] Verify order notification emails/WhatsApp actually arrive — needs a real Gmail App Password + Twilio SID/token filled into `application.properties`; code is done and safely no-ops when blank, but nothing has been sent for real yet
+- [ ] Build an admin UI to moderate/delete product reviews (reviews themselves are done, no moderation surface)
 - [ ] Wire real image upload on the frontend product form (backend already ready)
 - [ ] Add password-change controller endpoint (DTO already exists)
-- [ ] Restore stock on order cancellation (currently only deducted, never restored)
-- [ ] Verify Stripe/Konnect payment confirmations server-side (no webhooks yet)
-- [ ] Order status email/SMS notifications
+- [ ] Decide: re-enable Stripe (clearly labeled USD) or wait for Konnect — Stripe was pulled from the checkout UI when prices switched to TND display, since Stripe can't charge in TND
 - [ ] Resolve Google Sign-In "Erreur 401: invalid_client" — check Google Cloud Console (authorized JS origins / OAuth consent test users), not the app code
 - [ ] Manually test the promo banner admin flow in a browser (builds clean, untested end-to-end)
+- [ ] Wishlist, detailed order status history (BESOINS_ET_SUGGESTIONS.md wave 2)
 - [ ] Add Docker/docker-compose, CI/CD pipeline, `.env.example`
 
 ### OnBoarding
@@ -73,3 +74,4 @@ Quick index of other project-scoped skills to load for deeper context on a given
 
 - 2026-08-19: Initial version created (background, Raffaella, OnBoarding, learning goals).
 - 2026-08-19: Added Bonplan project, linked related skills (`/onboarding`, `/onboarding-details`, `/raffaella-brand`), added per-project open-task backlog, switched to an always-update-and-push session protocol.
+- 2026-08-20: Raffaella session — shipped coupons, verified-purchase product reviews, order email/WhatsApp notifications (untested with real credentials), TND currency display, add-whole-package-to-cart, admin nav-section visibility controls, category images + mega-menu hover preview, admin sidebar rework, and a notification-bell timezone bug fix. Refreshed the Raffaella open-task backlog accordingly; `/raffaella-brand` and the project's own `ARCHITECTURE.md`/`BESOINS_ET_SUGGESTIONS.md` were updated in the same session.
