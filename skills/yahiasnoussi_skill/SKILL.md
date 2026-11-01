@@ -29,6 +29,7 @@ App de bons plans locaux pour le Grand Tunis. Spring Boot + Angular 21 + Kafka +
 ### Mechestra (personal beat store)
 Yahia's own producer store (artist name **Mechestra**, "me as an orchestra"), BeatStars-pro-page style, for mechestra.com (domain to re-buy). Spring Boot 3.4 / Java 21 + Angular 21 + PostgreSQL (local `mechestra_db`, postgres/postgres) + Stripe Checkout only, USD, English. Path `OneDrive/Bureau/Mechestra` (`backend/` :8090, `frontend/` :4200 proxying /api). See its README.
 - v1 built 2026-10-29 (not committed yet): store (profile home, beats list + kits grid with filters, product page with license cards, persistent player with waveform, license picker, cart with buy-2-get-1 deal + coupons, guest or account checkout, signed downloads + generated license PDF, favorites, reviews, exclusive offers, custom-beat requests, newsletter, light/dark) and admin "Studio" (dashboard, products + uploads of tagged preview / untagged MP3, WAV, stems, kit ZIP, license templates, orders, customers, coupons, inbox, reviews, subscribers CSV, settings). Standard licenses seeded (MP3 $29.99, WAV $49.99, Trackout $99.99, Unlimited $199.99, Exclusive $599.99, Royalty-Free kit $24.99) + 9 synthesized demo products tagged `demo`.
+- 2026-11-01/02: red BeatStars-style accent (he hates orange), Google sign-in, exclusive offers negotiated on-site (accept / counter / decline, 72 h hold, per-beat floor, auto-decline on sale), custom beats run fully on-site (quote → 100% upfront → demos/revisions → delivery + exclusive contract PDF), typed budget. Full detail in `/mechestra`.
 
 ### Copilot Anomaly-Prevention Skill (work)
 Idea stage (2026-09-25): turn the team's anomaly knowledge base (Excel, ~55 fixed anomalies from a mainframe-to-Linux batch migration: SORT syntax incompatibilities, VB/FB/RDW file formats, variable substitution, missing binaries/data, EBCDIC-vs-ASCII COBOL issues) into GitHub Copilot customizations: repo instructions + path-specific instructions + Agent Skills + prompt files + a deterministic lint script in CI. Architecture proposed; nothing built yet.
@@ -38,6 +39,7 @@ Idea stage (2026-09-25): turn the team's anomaly knowledge base (Excel, ~55 fixe
 Quick index of other project-scoped skills to load for deeper context on a given project:
 - `/raffaella-brand` — Raffaella e-commerce, full project skill.
 - `/onboarding` — OnBoarding Hub, project skill.
+- `/mechestra` — Mechestra beat store, full project skill (local `~/.claude/skills/mechestra/SKILL.md`).
 - `/onboarding-details` — OnBoarding Hub, full functional analysis.
 
 ## Currently Learning
@@ -89,6 +91,7 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - [ ] First git commit (repo initialised, nothing committed yet)
 - [ ] Stripe test keys → set `STRIPE_SECRET_KEY`, test a real checkout with 4242 card + `stripe listen` webhook. Stripe account must belong to a supported country (not Tunisia) — open question
 - [ ] Real assets: logo SVG (current = "Permanent Marker" text wordmark), voice-tagged previews, untagged files, covers, banner/avatar, bio, social links; then delete demo products
+- [ ] Check the new offer / custom project pages in a browser (verified by API only so far)
 - [ ] Re-buy mechestra.com, VPS, `docker compose up` (Caddy HTTPS), Stripe webhook; SMTP for order emails
 - [ ] Flyway instead of `ddl-auto=update`; S3/R2 storage if files grow; legal pages (terms, privacy, refund)
 
@@ -107,6 +110,7 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - Keep the local memory system (project/feedback/reference memories) refreshed and organized in step with this file, same trigger, same cadence.
 
 ## Update Log
+- 2026-11-02: Mechestra — exclusive offers with accept/counter/decline, 72 h reservation, per-beat minimum, auto-decline when sold, paid from the account (no coupon); custom projects on-site (quote, 100% upfront, demos + limited revisions, delivery + exclusive contract PDF, message thread); typed budget; `FAKE_PAYMENTS=true` for local tests. 41/41 API end-to-end checks. Earlier (2026-11-01): orange → BeatStars red, BPM/Key/Tags columns realigned, Google sign-in. New project skill `/mechestra`. Still not committed.
 - 2026-10-29: New project **Mechestra** beat store built end to end in one session (backend + frontend + Docker/Caddy deploy files), verified with API smoke tests (free checkout, signed downloads, PDF contracts, deal pricing) and headless-Chrome screenshots desktop/mobile/dark/admin. Not committed yet.
 - 2026-10-20: Raffaella — product cards: products with variants get the same Add to cart / Buy buttons; a small variant picker opens (bottom sheet on phones) and blocks adding until a variant is chosen; wishlist add fixed for variant products. Committed with the promotions as `6d6c2e5` (+ CORS `cd9269b`), pushed.
 - 2026-10-20: Raffaella — product promotions before testing stock phase 1: admin sets a promo price (or a % that fills it) per product or per variant, shop cards/product page/cart show a -X% badge, struck old price and new price; server refuses a promo not below the normal price; variant products show the cheapest variant's promo. then optional start/end dates (both days included, Tunis time) so a promo starts and stops by itself, Deals page and order totals follow the dates, cart reloads prices. 34 tests. In `6d6c2e5` on `mig_plus_gestStock`.
