@@ -31,6 +31,10 @@ Yahia's own producer store (artist name **Mechestra**, "me as an orchestra"), Be
 - v1 built 2026-10-29 (not committed yet): store (profile home, beats list + kits grid with filters, product page with license cards, persistent player with waveform, license picker, cart with buy-2-get-1 deal + coupons, guest or account checkout, signed downloads + generated license PDF, favorites, reviews, exclusive offers, custom-beat requests, newsletter, light/dark) and admin "Studio" (dashboard, products + uploads of tagged preview / untagged MP3, WAV, stems, kit ZIP, license templates, orders, customers, coupons, inbox, reviews, subscribers CSV, settings). Standard licenses seeded (MP3 $29.99, WAV $49.99, Trackout $99.99, Unlimited $199.99, Exclusive $599.99, Royalty-Free kit $24.99) + 9 synthesized demo products tagged `demo`.
 - 2026-11-01/02: red BeatStars-style accent (he hates orange), Google sign-in, exclusive offers negotiated on-site (accept / counter / decline, 72 h hold, per-beat floor, auto-decline on sale), custom beats run fully on-site (quote → 100% upfront → demos/revisions → delivery + exclusive contract PDF), typed budget. Full detail in `/mechestra`.
 
+### Ascend (personal productivity app)
+Motion-style planner Yahia uses for himself first, built multi-user for many users later. Spring Boot 3.4 / Java 21 + Angular 21 + PostgreSQL (local `ascend_db`, postgres/postgres), Flyway, JWT. Path `OneDrive/Bureau/Ascend` (`backend/` :8095, `frontend/` :4300 proxying /api). Repo **github.com/YahiaSnoussi/ascend** (private), first commit `1015e8c` on `main` (2026-11-08).
+- v1: tasks (priority ASAP/High/Medium/Low, duration, soft/hard deadline, project) with an **auto-scheduler** that places them in work hours around fixed events, re-plans on every change and flags at-risk tasks; week calendar; projects (progress by minutes vs time elapsed, health, forecast); goals (horizon, why, measurable target or linked projects); habits (daily or N/week, streaks, heatmap); day/week/month reviews rated 1-10 with real period stats; coach insights + daily/weekly/monthly challenges sized from his own history; XP and levels; light/dark, phone layout; Docker Compose + Caddy deploy files.
+
 ### Learning videos (personal)
 Series of narrated motion-graphics lessons made from his study notes in `OneDrive/Bureau/New things ive learned/<topic>`. Free and local (Higgsfield needs an international card he doesn't have): American voice via edge-tts, Arabic subtitles burned in plus `.srt`, saved beside the source. First video 2026-11-02: `Data structure/Data structure video/Data Structures Explained.mp4` (11:41). SQL and Java notes are the natural next topics. Pipeline in `/motion-lesson-video`.
 
@@ -99,6 +103,11 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - [ ] Re-buy mechestra.com, VPS, `docker compose up` (Caddy HTTPS), Stripe webhook; SMTP for order emails
 - [ ] Flyway instead of `ddl-auto=update`; S3/R2 storage if files grow; legal pages (terms, privacy, refund)
 
+### Ascend
+- [ ] Use it daily for a week, then list what is missing or annoying
+- [ ] Roadmap: split long tasks across days, recurring tasks, Google/Outlook calendar sync, drag and drop in the calendar, reminders (evening review, streak at risk), AI weekly coach
+- [ ] Deploy (VPS + domain, `.env` from `.env.example`, `docker compose up -d --build`)
+
 ### Bonplan
 - [ ] Étape 2: Catalogue & recherche IA (SearchController + AnthropicService)
 - [ ] Étape 3: Page établissement (galerie, menu, deals, avis)
@@ -114,6 +123,7 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - Keep the local memory system (project/feedback/reference memories) refreshed and organized in step with this file, same trigger, same cadence.
 
 ## Update Log
+- 2026-11-08: New project **Ascend** (Motion-style planner: auto-scheduled tasks, calendar, projects, goals, habits, day/week/month ratings, challenges + XP). Built in one session, API scenario + scheduler unit tests + headless-Chrome screenshots (light/dark/mobile, no console errors), pushed to new private repo YahiaSnoussi/ascend (`1015e8c`).
 - 2026-11-04: Learning videos — `Data Structures Explained v2.mp4` from his rewritten script (18:52, 16 sections, new real-life analogies, Arabic subtitles) and a 30 s test film `Cocktail recipe video/Tequila Sunrise Recipe.mp4`. New YouTube audio chain in `/motion-lesson-video`: voice EQ, de-esser, compression, room, synthesised ducked music and effects, -14 LUFS. Audio still needs his listening check.
 - 2026-11-02: Learning videos — first video from his data structures notes (11:41, 1080p60, American voice, Arabic subtitles), built locally after Higgsfield turned out to need an international card; packaged as new skill `/motion-lesson-video` and tested from a clean folder.
 - 2026-11-02: Mechestra — exclusive offers with accept/counter/decline, 72 h reservation, per-beat minimum, auto-decline when sold, paid from the account (no coupon); custom projects on-site (quote, 100% upfront, demos + limited revisions, delivery + exclusive contract PDF, message thread); typed budget; `FAKE_PAYMENTS=true` for local tests. 41/41 API end-to-end checks. Earlier (2026-11-01): orange → BeatStars red, BPM/Key/Tags columns realigned, Google sign-in. New project skill `/mechestra`. Still not committed.
