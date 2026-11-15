@@ -105,7 +105,8 @@ Quick index of other project-scoped skills to load for deeper context on a given
 
 ### Ascend
 - [ ] Use it daily for a week, then list what is missing or annoying
-- [ ] Roadmap: split long tasks across days, recurring tasks, Google/Outlook calendar sync, drag and drop in the calendar, reminders (evening review, streak at risk), AI weekly coach
+- [ ] Create the Google OAuth client (Calendar API on, redirect http://localhost:4300/api/google/callback, himself as test user) + Gmail app password → `backend/.env`, then connect in Settings and test
+- [ ] Roadmap: split long tasks across days, recurring tasks, Outlook sync, drag and drop in the calendar, push notifications, AI weekly coach
 - [ ] Deploy (VPS + domain, `.env` from `.env.example`, `docker compose up -d --build`)
 
 ### Bonplan
@@ -123,6 +124,7 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - Keep the local memory system (project/feedback/reference memories) refreshed and organized in step with this file, same trigger, same cadence.
 
 ## Update Log
+- 2026-11-15: Ascend: Google Calendar two-way sync (busy events in, tasks out to an "Ascend" Google calendar with phone pop-ups), daily plan email at 08:00 in each user's zone, email reminders, V3 migration, 10 unit tests. Not committed; waiting for his Google OAuth client (ID+secret) and Gmail app password in `backend/.env`.
 - 2026-11-15: Ascend: new project skill `/ascend` (`~/.claude/skills/ascend/SKILL.md`: how to run, architecture, rules, next steps). App checked running locally (API :8095, front :4300, test1@ascend.local login OK).
 - 2026-11-10: Ascend: Google sign-in/sign-up (key still to create), weekly repeating events, DB wiped and refilled with his real projects, learning goals, habits (natation lun/mer/ven) and work week 8h-18h (commits `2996878`, `a32a8e1`). Next: Google Calendar sync + reminders on mobile.
 - 2026-11-10: Ascend: kid-level (10-year-old) PowerPoint `docs/Ascend-explained-simply.pptx` (24 slides: features, robot planner, XP, entity "family tree", inside the app, quiz) + full database ERD drawn with the new **archify** skill (`docs/diagrams/`). Archify needs a Node preload on this PC (`~/.claude/archify-fixdev.cjs`, lstat dev=0 bug). Not committed yet.

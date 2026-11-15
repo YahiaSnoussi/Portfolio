@@ -38,7 +38,9 @@ Steps:
 
 - Reseed (**wipes the DB**: all users and data): `bash seed/seed.sh` while the API is running. `seed/` is gitignored
   (it mentions work projects).
-- Google sign-in: the button stays hidden until `GOOGLE_CLIENT_ID` is set (he will create the OAuth client later; see README).
+- Secrets go in `backend/.env` (gitignored, loaded by `spring.config.import`): `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `MAIL_HOST/PORT/USERNAME/PASSWORD/FROM`. Restart the API after editing it.
+- Google sign-in button and Calendar connect stay hidden/disabled until the Google keys are set (README § Google has the console steps).
+- Without `MAIL_HOST` emails are saved as HTML in `backend/mail-outbox/` (gitignored). Preview: `GET /api/notifications/daily-email/preview?date=YYYY-MM-DD`.
 - Python is not installed → use Node or bash for scripts.
 - Screenshots: Node + CDP over headless Chrome; in Git Bash prefix with `MSYS_NO_PATHCONV=1`, otherwise page paths
   get mangled into `C:/Program Files/Git/...`. The Chrome extension is unreliable on this PC.
@@ -55,8 +57,10 @@ Steps:
 - `goal/`, `project/` (progress weighted by duration vs time elapsed, health, forecast), `habit/` (daily or N/week,
   streaks, heatmap), `review/` (day/week/month 1–10 + energy, with the period's real numbers), `challenge/`
   (generated from his history + custom ones, XP/levels), `dashboard/` (Today page + coach insights),
-  `user/` (settings: timezone, work hours/days), `security/` (JWT, Google ID token), `common/`.
-- Config `application.yml`: `ddl-auto: none`, **Flyway** (`db/migration/V1__init.sql`, `V2__google_and_recurring_events.sql`),
+  `user/` (settings: timezone, work hours/days, email prefs), `security/` (JWT, Google ID token), `common/` (`TokenCipher` AES-GCM for stored Google tokens).
+- `google/` **`GoogleCalendarService`**: OAuth code flow (scope `calendar`, redirect `PUBLIC_URL/api/google/callback`, HMAC-signed state), import of busy timed events from calendars shown in Google into `events` with `source=GOOGLE` (read-only, replaced each sync, past 14 days kept), push of planned tasks to an "Ascend" calendar (diff by private extended property `ascendTaskId` + `ascendHash`, pop-up reminder), triggered by `SchedulerService.PlanChanged` (coalesced 3 s, single thread) and a 10-min job. Connecting also links `googleSub` and sets `notifyEmail`.
+- `notify/`: `MailService` (SMTP or outbox), `NotificationService` (1-min tick: daily plan at `dailyEmailTime` in the user's zone, 3 h grace, once a day via `last_daily_email`; reminders `reminderMinutes` before tasks and one-off events, dedup in `reminders_sent`), `NotificationController`.
+- Config `application.yml`: `ddl-auto: none`, **Flyway** (`db/migration/V1__init.sql`, `V2__google_and_recurring_events.sql`, `V3__google_calendar_and_emails.sql`),
   `hibernate.jdbc.time_zone: UTC` (the API runs in UTC: before that, TIME work hours were shifted by the PC's offset).
   Env: `PORT`, `DB_URL`, `DB_USER`, `DB_PASSWORD`, `JWT_SECRET`, `JWT_DAYS`, `GOOGLE_CLIENT_ID`.
 
@@ -78,7 +82,7 @@ Steps:
 ## 3. RULES
 
 - **Multi-user**: every repository query is filtered by the signed-in user id. Never add a query that isn't.
-- **Flyway**: a schema change goes in a new `V3__...sql`, `V4__...`. **Never edit V1/V2.**
+- **Flyway**: a schema change goes in a new `V4__...sql`. **Never edit V1–V3.**
 - Keep the API in UTC; convert with the user's timezone setting.
 - Commit with clear messages and push to `main` when Yahia asks.
 
@@ -90,5 +94,7 @@ Steps:
 - Real data seeded on 2026-11-10: 5 goals, 11 projects, 4 habits (swimming Mon/Wed/Fri, LeetCode, music, learning),
   a "Travail" event Mon–Fri 08–18, planning window 08–22 every day (so tasks land on evenings and weekends).
 - **Still to confirm with him**: habit frequencies, the 22:00 end of day, swimming time (no event yet).
-- **What he wants next**: Google Calendar sync, mobile reminders (notifications).
+- 2026-11-15 (not committed yet): Google Calendar two-way sync, daily plan email at 08:00 in the user's zone, email reminders, Settings sections, 10 unit tests green. Tested with the outbox (reminder + digest OK); **real Google and SMTP not tested yet: waiting for Yahia's OAuth client + Gmail app password** in `backend/.env`. His account email is `test1@ascend.local`, so he must set "Send emails to" (or connect Google, which fills it).
+- All 67 seeded tasks are DONE: nothing open to plan right now.
+- Next ideas: push notifications (PWA), Outlook sync, recurring tasks.
 - At the end of a session: update this skill (§4) and the `project_ascend.md` memory.
