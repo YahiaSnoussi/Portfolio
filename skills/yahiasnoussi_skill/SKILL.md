@@ -123,6 +123,7 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - Keep the local memory system (project/feedback/reference memories) refreshed and organized in step with this file, same trigger, same cadence.
 
 ## Update Log
+- 2026-11-15: Ascend: new project skill `/ascend` (`~/.claude/skills/ascend/SKILL.md`: how to run, architecture, rules, next steps). App checked running locally (API :8095, front :4300, test1@ascend.local login OK).
 - 2026-11-10: Ascend: Google sign-in/sign-up (key still to create), weekly repeating events, DB wiped and refilled with his real projects, learning goals, habits (natation lun/mer/ven) and work week 8h-18h (commits `2996878`, `a32a8e1`). Next: Google Calendar sync + reminders on mobile.
 - 2026-11-10: Ascend: kid-level (10-year-old) PowerPoint `docs/Ascend-explained-simply.pptx` (24 slides: features, robot planner, XP, entity "family tree", inside the app, quiz) + full database ERD drawn with the new **archify** skill (`docs/diagrams/`). Archify needs a Node preload on this PC (`~/.claude/archify-fixdev.cjs`, lstat dev=0 bug). Not committed yet.
 - 2026-11-08: New project **Ascend** (Motion-style planner: auto-scheduled tasks, calendar, projects, goals, habits, day/week/month ratings, challenges + XP). Built in one session, API scenario + scheduler unit tests + headless-Chrome screenshots (light/dark/mobile, no console errors), pushed to new private repo YahiaSnoussi/ascend (`1015e8c`).
