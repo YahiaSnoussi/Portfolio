@@ -108,7 +108,8 @@ Quick index of other project-scoped skills to load for deeper context on a given
 ### Ascend
 - [ ] Use it daily for a week, then list what is missing or annoying
 - [x] Gemini key in Ascend `backend/.env`: assistant works live (2026-11-16)
-- [ ] Commit + push the uncommitted Ascend work (Google sync, emails, assistant, Gemini)
+- [x] Ascend work committed + pushed (`acdec05`, 2026-11-16)
+- [ ] Ascend: Google OAuth client + Gmail app password in backend/.env to test real Calendar sync and emails
 - [ ] Create the Google OAuth client (Calendar API on, redirect http://localhost:4300/api/google/callback, himself as test user) + Gmail app password → `backend/.env`, then connect in Settings and test
 - [ ] Roadmap: split long tasks across days, recurring tasks, Outlook sync, drag and drop in the calendar, push notifications, AI weekly coach
 - [ ] Deploy (VPS + domain, `.env` from `.env.example`, `docker compose up -d --build`)
