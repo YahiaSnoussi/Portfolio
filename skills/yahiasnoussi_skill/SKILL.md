@@ -66,6 +66,8 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - [x] Production code prep — **done 2026-09-26 on branch `production_mig`** (`0bf8f93`): env-var config, Docker Compose + Caddy for **raffaella.tn**, backups, DEPLOY.md; stack tested locally in Docker.
 - [ ] Buy VPS + point raffaella.tn DNS, add https://raffaella.tn to Google OAuth origins, first deploy following DEPLOY.md with a NEW `JWT_SECRET`; then merge `production_mig` into `master`.
 - [ ] Legal pages (mentions légales, CGV, confidentialité — loi 2004-63) before selling.
+- [x] Brand promo video "Sempre Bella" 9:16 + 16:9 — **done 2026-11-16** (`Bureau/Raffaella/Video promo brand/`). Clean rushes without subtitles would allow full-screen shots.
+- [ ] Promo video for the web app (features: shop, variants, promos, wallet/referral, tracking…), same brand rules.
 - [x] Loyalty coupon + referral/wallet + production hardening — **built 2026-10-13, committed + pushed as `5d5f180` on `production_mig`**: 10 % personal code per delivered order of 300 TND or more, 2 TND wallet credit per referral (paid at the referee's first delivered order), wallet usable at checkout; Flyway migrations, row locks on stock/coupons/wallet, idempotent checkout, order state machine, rate limiting, async emails, in-memory cache. 16 automated tests + live scenario + FR/AR screenshots.
 - [ ] Confirm the limits Claude picked by default (referee minimum order 50 TND, wallet cap 30 % of an order, wallet credit validity 12 months, 10 paid referrals per month — all in `.env`).
 - [x] Admin force-delete of users + dashboard amounts in BigDecimal — **done 2026-10-17, committed + pushed as `c38c27f` on `production_mig`** (+ /actuator/health with a Docker healthcheck): plain delete now returns a clear 409 when the account has orders/wallet/referrals, the admin can then force it; orders are kept as guest orders (name/email/phone copied), reviews/wishlist/wallet/referrals/personal coupons deleted, the referrer keeps earned credit. 18 tests green.
@@ -105,7 +107,8 @@ Quick index of other project-scoped skills to load for deeper context on a given
 
 ### Ascend
 - [ ] Use it daily for a week, then list what is missing or annoying
-- [ ] Get a FREE Google Gemini key (aistudio.google.com > Get API key) → `AI_API_KEY` in Ascend `backend/.env`, restart the API, try the Assistant page (Anthropic key later, optional)
+- [x] Gemini key in Ascend `backend/.env`: assistant works live (2026-11-16)
+- [ ] Commit + push the uncommitted Ascend work (Google sync, emails, assistant, Gemini)
 - [ ] Create the Google OAuth client (Calendar API on, redirect http://localhost:4300/api/google/callback, himself as test user) + Gmail app password → `backend/.env`, then connect in Settings and test
 - [ ] Roadmap: split long tasks across days, recurring tasks, Outlook sync, drag and drop in the calendar, push notifications, AI weekly coach
 - [ ] Deploy (VPS + domain, `.env` from `.env.example`, `docker compose up -d --build`)
@@ -125,7 +128,8 @@ Quick index of other project-scoped skills to load for deeper context on a given
 - Keep the local memory system (project/feedback/reference memories) refreshed and organized in step with this file, same trigger, same cadence.
 
 ## Update Log
-- 2026-11-16 (evening): Ascend: assistant can now run on a free model: OpenAI-compatible provider, Google Gemini by default (`AI_API_KEY`, also Groq/Ollama via `AI_BASE_URL`), V5 migration, tested against a mock server. Not committed; waits for his Gemini key.
+- 2026-11-16 (night): Raffaella: brand promo film "Sempre Bella" (30 s, modelled on the Dior Skin Essentials ad), built in code with HyperFrames from his own rushes (déo crème, Hermosa SPF 50, Glisse d'Or) cropped above their burned-in Arabic subtitles + embossed crest pattern, French text, silent (he adds music on Instagram). 9:16 and 16:9 MP4s in `Bureau/Raffaella/Video promo brand/`, rules in `BRAND-RULES.md`. Next: a video promoting the web app features.
+- 2026-11-16 (evening): Ascend: assistant can now run on a free model: OpenAI-compatible provider, Google Gemini by default (`AI_API_KEY`, also Groq/Ollama via `AI_BASE_URL`), V5 migration, tested against a mock server. Key added same evening, live chat works. Not committed.
 - 2026-11-16: Ascend: AI assistant page: he chats, Claude (Opus 5.5, Java SDK) reads his plan and proposes goals/projects/tasks/habits/events as a card; nothing is saved until he confirms. Confirm flow tested; live chat waits for his ANTHROPIC_API_KEY. Not committed.
 - 2026-11-15: Ascend: Google Calendar two-way sync (busy events in, tasks out to an "Ascend" Google calendar with phone pop-ups), daily plan email at 08:00 in each user's zone, email reminders, V3 migration, 10 unit tests. Not committed; waiting for his Google OAuth client (ID+secret) and Gmail app password in `backend/.env`.
 - 2026-11-15: Ascend: new project skill `/ascend` (`~/.claude/skills/ascend/SKILL.md`: how to run, architecture, rules, next steps). App checked running locally (API :8095, front :4300, test1@ascend.local login OK).
